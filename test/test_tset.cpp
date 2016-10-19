@@ -295,3 +295,34 @@ TEST(TSet, check_negation_operator)
 
   EXPECT_EQ(expSet, set1);
 }
+
+//--------------------------------------------------
+
+TEST(TSet, can_use_plus_operator_for_three_sets_of_non_equal_sizes)
+{
+	const int size1 = 6, size2 = 1, size3 = 7;
+	TSet set1(size1), set2(size2), set3(size3), resSet(size3), expSet(size3);
+
+	// set1 = {1, 3, 5} 
+	set1.InsElem(1);
+	set1.InsElem(3);
+	set1.InsElem(5);
+
+	// set2 = {0}
+	set2.InsElem(0);
+
+	// set3 = {0,2,4,5,6}
+	set3.InsElem(0);
+	set3.InsElem(2);
+	set3.InsElem(4);
+	set3.InsElem(5);
+	set3.InsElem(6);
+
+	resSet = set1 + set2 + set3;
+
+	// expSet = {0,1,2,3,4,5,6}
+	for (int i = 0; i < size3; ++i)
+		expSet.InsElem(i);
+
+	EXPECT_EQ(expSet, resSet);
+}

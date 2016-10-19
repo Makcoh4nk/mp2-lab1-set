@@ -309,3 +309,62 @@ TEST(TBitField, bitfields_with_different_bits_are_not_equal)
 
   EXPECT_NE(bf1, bf2);
 }
+
+//------------------------------------------------------------
+
+TEST(TBitField, can_create_bitfield_with_zero_length) 
+{
+	ASSERT_NO_THROW(TBitField bf(0));
+}
+
+TEST(TBitField, after_double_clear_bit_equal_zero)
+{
+	TBitField bf(10);
+
+	bf.SetBit(3);
+
+	bf.ClrBit(3);
+
+	bf.ClrBit(3);
+	EXPECT_EQ(0, bf.GetBit(3));
+}
+
+TEST(TBitField, double_invert_bitfield_is_equal_the_original_bitfield)
+{
+	const int size = 3;
+	TBitField bf(size), negBf(size), newNegBf(size);
+	// bf = 101
+	bf.SetBit(0);
+	bf.SetBit(2);
+
+	negBf = ~bf;
+	// negBf = 010
+
+	newNegBf = ~negBf;
+	//newNegBf = 101
+
+	EXPECT_EQ(newNegBf, bf);
+}
+
+TEST(TBitField, can_use_or_operator_for_three_bitfields_of_equal_sizes) 
+{
+	const int size = 5;
+	TBitField bf1(size), bf2(size), bf3(size), resBf(size);
+
+	// bf1 = 10001
+	bf1.SetBit(0);
+	bf1.SetBit(4);
+
+	// bf2 = 01010
+	bf2.SetBit(1);
+	bf2.SetBit(3);
+
+	//bf3 = 00100;
+	bf3.SetBit(2);
+
+	//resBf = 11111; 
+	for (int i=0; i<size; ++i)
+		resBf.SetBit(i);
+
+	EXPECT_EQ(resBf, (bf1 | bf2 | bf3));
+}
