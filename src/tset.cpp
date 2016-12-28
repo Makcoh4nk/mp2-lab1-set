@@ -9,16 +9,28 @@
 
 TSet::TSet(int mp) : MaxPower(mp) , BitField(mp)
 {
+	if (mp >= 0) {
+		MaxPower = mp;
+		TBitField a(mp);
+		BitField = a;
+	}
+	else {
+		throw logic_error("Error description");
+	}
 }
 
 // конструктор копирования
 TSet::TSet(const TSet &s) : MaxPower(s.MaxPower), BitField(s.BitField)
 {
+	MaxPower = s.MaxPower;
+	BitField = s.BitField;
 }
 
 // конструктор преобразования типа
 TSet::TSet(const TBitField &bf) : MaxPower(bf.GetLength()),BitField(bf)
 {
+	MaxPower = bf.GetLength();
+	BitField = bf;
 }
 
 TSet::operator TBitField()
@@ -39,12 +51,18 @@ int TSet::IsMember(const int Elem) const // элемент множества?
 
 void TSet::InsElem(const int Elem) // включение элемента множества
 {
-	BitField.SetBit(Elem);
+	if ((Elem >= 0) && (Elem < MaxPower))
+		BitField.SetBit(Elem);
+	else
+		throw logic_error("Error description");
 }
 
 void TSet::DelElem(const int Elem) // исключение элемента множества
 {
-	BitField.ClrBit(Elem);
+	if ((Elem >= 0) && (Elem < MaxPower))
+		BitField.ClrBit(Elem);
+	else
+		throw logic_error("Error description");
 }
 
 // теоретико-множественные операции
@@ -81,7 +99,7 @@ TSet TSet::operator+(const int Elem) // объединение с элемент
 		return temp;
 	}
 	else
-		throw 1;
+		throw logic_error("Error description");
 }
 
 TSet TSet::operator-(const int Elem) // разность с элементом
@@ -92,7 +110,7 @@ TSet TSet::operator-(const int Elem) // разность с элементом
 		return *this;
 	}
 	else 
-		throw 1;
+		throw logic_error("Error description");
 }
 
 TSet TSet::operator*(const TSet &s) // пересечение
