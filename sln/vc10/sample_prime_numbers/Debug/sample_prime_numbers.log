@@ -1,0 +1,4 @@
+﻿  sample_prime_numbers.cpp
+sample_prime_numbers.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/SAFESEH' specification
+  sample_prime_numbers.vcxproj -> C:\Users\HP\Desktop\For_Git\LabWork#1_BitFields\mp2-lab1-set\sln\vc10\Debug\sample_prime_numbers.exe
+  sample_prime_numbers.vcxproj -> C:\Users\HP\Desktop\For_Git\LabWork#1_BitFields\mp2-lab1-set\sln\vc10\Debug\sample_prime_numbers.pdb (Full PDB)
